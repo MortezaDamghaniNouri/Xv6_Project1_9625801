@@ -114,6 +114,32 @@ int sys_getRunningProcessPID(void)
 
 
 }
+int sys_changePolicy(void)
+{
+
+  return changePolicy();
+
+
+
+
+}
+int sys_Quantum_Increaser(void)
+{
+
+  return Quantum_Increaser();
+
+
+
+
+}
+int sys_Quantum_Decreaser(void)
+{
+
+    return Quantum_Decreaser();
+
+
+
+}
 
 
 

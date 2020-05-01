@@ -106,6 +106,9 @@ extern int sys_uptime(void);
 extern int sys_printingMyFavoriteYear(void);
 extern int sys_getChildren(void);
 extern int sys_getRunningProcessPID(void);
+extern int sys_changePolicy(void);
+extern int sys_Quantum_Increaser(void);
+extern int sys_Quantum_Decreaser(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -129,9 +132,12 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
-[SYS_printingMyFavoriteYear] printingMyFavoriteYear,
+[SYS_printingMyFavoriteYear] sys_printingMyFavoriteYear,
 [SYS_getChildren] sys_getChildren,
 [SYS_getRunningProcessPID] sys_getRunningProcessPID,
+[SYS_changePolicy] sys_changePolicy,
+[SYS_Quantum_Increaser] sys_Quantum_Increaser,
+[SYS_Quantum_Decreaser] sys_Quantum_Decreaser,
 
 };
 

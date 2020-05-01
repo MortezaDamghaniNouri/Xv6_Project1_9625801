@@ -13,6 +13,8 @@ struct {
 } ptable;
 
 static struct proc *initproc;
+static int schedulerAlgorithmNumber=0;
+static int Quantum=1;
 
 int nextpid = 1;
 extern void forkret(void);
@@ -322,7 +324,12 @@ wait(void)
 void
 scheduler(void)
 {
-  struct proc *p;
+  for(;;)
+  {
+if(schedulerAlgorithmNumber==0)
+  {
+   
+     struct proc *p;
   struct cpu *c = mycpu();
   c->proc = 0;
   
@@ -346,13 +353,82 @@ scheduler(void)
       swtch(&(c->scheduler), p->context);
       switchkvm();
 
+
+
+      
+      
+
+
+
+
       // Process is done running for now.
       // It should have changed its p->state before coming back.
       c->proc = 0;
     }
+
     release(&ptable.lock);
 
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ }
+
+
+
+
+
+
+  else
+  {
+    struct proc *p;
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){ cprintf("HERE");
+    }
+
+
+  }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+
+
+
+
+
+
+
+ 
+
 }
 
 // Enter scheduler.  Must hold only ptable.lock
@@ -596,9 +672,60 @@ int getRunningProcessPID(void)
 
 
 }
+//This function changes the policy of scheduling by changing the amount of schedulerAlgorithmNumber variable and 
+//returns the amount of the variable .
+int changePolicy(void)
+{
+  if(schedulerAlgorithmNumber==0)
+  {
+    schedulerAlgorithmNumber=1;
 
 
 
+
+  }
+  if(schedulerAlgorithmNumber==1)
+  {
+    schedulerAlgorithmNumber=0;
+
+
+
+
+
+
+
+
+  }
+
+  return schedulerAlgorithmNumber;
+
+
+
+
+}
+//This function increases the amount of Quantum variable 10 units .
+int Quantum_Increaser(void)
+{
+  
+
+  Quantum+=10;
+  return Quantum;
+
+
+
+}
+//This function decreases the amount of Quantum variable 10 units .
+int Quantum_Decreaser(void)
+{
+
+
+  Quantum-=10;
+  return Quantum;
+
+
+
+
+}
 
 
 

@@ -26,6 +26,9 @@ int uptime(void);
 int printingMyFavoriteYear(void);
 int getChildren(void);
 int getRunningProcessPID(void);
+int changePolicy(void);
+int Quantum_Increaser(void);
+int Quantum_Decreaser(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

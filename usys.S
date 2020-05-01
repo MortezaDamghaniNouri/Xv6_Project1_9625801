@@ -31,5 +31,8 @@ SYSCALL(sleep)
 SYSCALL(uptime)
 SYSCALL(printingMyFavoriteYear)
 SYSCALL(getChildren)
-SYSCALL(getRunningProcessPID);
+SYSCALL(getRunningProcessPID)
+SYSCALL(changePolicy)
+SYSCALL(Quantum_Increaser)
+SYSCALL(Quantum_Decreaser)
 

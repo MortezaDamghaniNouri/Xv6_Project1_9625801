@@ -23,4 +23,7 @@
 #define SYS_printingMyFavoriteYear 22
 #define SYS_getChildren 23
 #define SYS_getRunningProcessPID 24
+#define SYS_changePolicy 25
+#define SYS_Quantum_Increaser 26
+#define SYS_Quantum_Decreaser 27
 

@@ -123,6 +123,9 @@ void            yield(void);
 int             printingMyFavoriteYear(void);
 int             getChildren(void);
 int             getRunningProcessPID(void);
+int             changePolicy(void);
+int             Quantum_Increaser(void);
+int             Quantum_Decreaser(void);
 
 // swtch.S
 void            swtch(struct context**, struct context*);
