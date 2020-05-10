@@ -29,6 +29,8 @@ int getRunningProcessPID(void);
 int changePolicy(void);
 int Quantum_Increaser(void);
 int Quantum_Decreaser(void);
+int Quantum_Initializer(void);
+int Quantum_One_Setter(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

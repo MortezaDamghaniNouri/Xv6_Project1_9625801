@@ -126,6 +126,11 @@ int             getRunningProcessPID(void);
 int             changePolicy(void);
 int             Quantum_Increaser(void);
 int             Quantum_Decreaser(void);
+int             Quantum_Initializer(void);
+int             Quantum_One_Setter(void);
+void            waitForChiled(int);
+int             getQuantum(void);
+void            priorityAlgorithmFunction(struct cpu *u,struct proc *process);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

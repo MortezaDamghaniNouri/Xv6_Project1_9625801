@@ -109,6 +109,8 @@ extern int sys_getRunningProcessPID(void);
 extern int sys_changePolicy(void);
 extern int sys_Quantum_Increaser(void);
 extern int sys_Quantum_Decreaser(void);
+extern int sys_Quantum_Initializer(void);
+extern int sys_Quantum_One_Setter(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -138,6 +140,8 @@ static int (*syscalls[])(void) = {
 [SYS_changePolicy] sys_changePolicy,
 [SYS_Quantum_Increaser] sys_Quantum_Increaser,
 [SYS_Quantum_Decreaser] sys_Quantum_Decreaser,
+[SYS_Quantum_Initializer] sys_Quantum_Initializer,
+[SYS_Quantum_One_Setter] sys_Quantum_One_Setter,
 
 };
 

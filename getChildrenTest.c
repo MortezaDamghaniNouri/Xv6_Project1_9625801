@@ -18,6 +18,8 @@ int main(void)
 
    if(getRunningProcessPID()==runningProcessPID)
    {
+      for(int i=1;i<10000;++i);// This loop is for better printing the results , without any unwanted letters among the results
+      // if you delete this loop , nothing special will happen and the program will execute completely but the results may print messy
  printf(1,"===============================================================\nThe getChildren function result is:\n");
     getChildren();
     

@@ -26,4 +26,6 @@
 #define SYS_changePolicy 25
 #define SYS_Quantum_Increaser 26
 #define SYS_Quantum_Decreaser 27
+#define SYS_Quantum_Initializer 28
+#define SYS_Quantum_One_Setter 29
 

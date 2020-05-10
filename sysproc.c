@@ -140,6 +140,21 @@ int sys_Quantum_Decreaser(void)
 
 
 }
+int sys_Quantum_Initializer(void)
+{
+
+  return Quantum_Initializer();
+
+
+
+}
+int sys_Quantum_One_Setter(void)
+{
+
+return Quantum_One_Setter();
+
+
+}
 
 
 

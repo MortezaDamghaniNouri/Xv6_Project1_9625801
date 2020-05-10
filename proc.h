@@ -49,6 +49,18 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  int priority;                // The primary priority of the process to run 
+  int changeablePriority;      // The priority of the process which will be cosidered by the scheduler to choose the appropriate process to run 
+  int creationTime;            // The time when the process was created 
+  int runningTime;             // The time when the process was running in CPU
+  int sleepTime;               // The time when the process was in sleep mod
+  int waitingTime;             // The time when the process was waiting for recieving CPU
+  int terminationTime;         // The time when the process terminated 
+
+
+
+
+
 };
 
 // Process memory is laid out contiguously, low addresses first:

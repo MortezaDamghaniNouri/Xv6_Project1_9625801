@@ -35,4 +35,5 @@ SYSCALL(getRunningProcessPID)
 SYSCALL(changePolicy)
 SYSCALL(Quantum_Increaser)
 SYSCALL(Quantum_Decreaser)
-
+SYSCALL(Quantum_Initializer)
+SYSCALL(Quantum_One_Setter)
