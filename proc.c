@@ -14,8 +14,10 @@ struct
 } ptable;
 
 static struct proc *initproc;
-static int schedulerAlgorithmNumber = 2;
+static int schedulerAlgorithmNumber = 3;
 static int Quantum = 1;
+static int numberOfQueueToAllocate=1;
+
 
 int nextpid = 1;
 extern void forkret(void);
@@ -94,6 +96,25 @@ found:
   p->pid = nextpid++;
   p->priority = 1;
   p->changeablePriority = 0;
+  if(schedulerAlgorithmNumber==3)
+  {
+      p->queueNumber=numberOfQueueToAllocate;
+      ++numberOfQueueToAllocate;
+      if(numberOfQueueToAllocate==4)
+      {
+          numberOfQueueToAllocate=1;
+
+      }
+
+
+  }
+  else
+  {
+    p->queueNumber=0;
+
+
+  }
+
   release(&ptable.lock);
 
   // Allocate kernel stack.
@@ -457,6 +478,208 @@ void scheduler(void)
         release(&ptable.lock);
       }
     }
+    if(schedulerAlgorithmNumber==3)
+    {
+        int queueNumberToServe=1;
+        struct proc *p, *innerProcess;
+      struct cpu *c = mycpu();
+      c->proc = 0;
+      struct proc *chosenProcess = 0;
+        for(;;)
+        {
+            if(queueNumberToServe==1)
+            {
+               struct proc *p;
+      struct cpu *c = mycpu();
+      c->proc = 0;
+
+                 sti();
+        acquire(&ptable.lock);
+        //cprintf("and now here .\n");
+
+        // Loop over process table looking for process to run.
+
+        for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+        {
+          //cprintf("HERE IS EXECUTING...\n");
+          if (p->state == RUNNABLE && p->queueNumber==1 )
+          {
+              
+          // Switch to chosen process.  It is the process's job
+          // to release ptable.lock and then reacquire it
+          // before jumping back to us.
+          c->proc = p;
+          switchuvm(p);
+          p->state = RUNNING;
+
+          swtch(&(c->scheduler), p->context);
+          switchkvm();
+
+          // Process is done running for now.
+          // It should have changed its p->state before coming back.
+          c->proc = 0;
+
+
+
+
+
+
+
+
+
+
+          }
+          
+
+        }
+
+        release(&ptable.lock);
+        ++queueNumberToServe;
+
+
+
+
+
+
+
+            }
+            if(queueNumberToServe==2)
+            {
+               struct proc *p;
+      struct cpu *c = mycpu();
+      c->proc = 0;
+
+                  sti();
+        acquire(&ptable.lock);
+
+        Quantum = 10;
+        for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+        {
+          if (p->state == RUNNABLE && p->queueNumber==2)
+          {
+
+            c->proc = p;
+            switchuvm(p);
+            p->state = RUNNING;
+
+            swtch(&(c->scheduler), p->context);
+            switchkvm();
+            c->proc = 0;
+          }
+        }
+        release(&ptable.lock);
+        Quantum=1;
+        ++queueNumberToServe;
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+            if(queueNumberToServe==3)
+            {
+               struct proc *p, *innerProcess;
+      struct cpu *c = mycpu();
+      c->proc = 0;
+      struct proc *chosenProcess = 0;
+                  sti();
+        acquire(&ptable.lock);
+
+        for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+        {
+
+          if (p->state == RUNNABLE && p->queueNumber==3)
+          {
+            chosenProcess = p;
+            for (innerProcess = ptable.proc; innerProcess < &ptable.proc[NPROC]; innerProcess++)
+            {
+              if (innerProcess->state == RUNNABLE)
+              {
+                if (innerProcess->changeablePriority <= chosenProcess->changeablePriority)
+                {
+
+                  chosenProcess = innerProcess;
+                }
+              }
+            }
+
+            c->proc = chosenProcess;
+            switchuvm(chosenProcess);
+            chosenProcess->state = RUNNING;
+
+            swtch(&(c->scheduler), chosenProcess->context);
+            switchkvm();
+            c->proc = 0;
+          }
+        }
+        release(&ptable.lock);
+        queueNumberToServe=1;
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+        }
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 }
 
@@ -688,8 +911,18 @@ int changePolicy(void)
   }
   if (schedulerAlgorithmNumber == 1)
   {
+    schedulerAlgorithmNumber = 2;
+  }
+  if (schedulerAlgorithmNumber == 2)
+  {
+    schedulerAlgorithmNumber = 3;
+  }
+  if (schedulerAlgorithmNumber == 3)
+  {
     schedulerAlgorithmNumber = 0;
   }
+
+
 
   return schedulerAlgorithmNumber;
 }

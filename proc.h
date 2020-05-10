@@ -56,6 +56,7 @@ struct proc {
   int sleepTime;               // The time when the process was in sleep mod
   int waitingTime;             // The time when the process was waiting for recieving CPU
   int terminationTime;         // The time when the process terminated 
+  int queueNumber;             // The number of the queue which the process is in that 
 
 
 
